@@ -302,7 +302,7 @@ class User
 		
 		$paymentId = $order_info['payment_id'];
 		$opportunity['formOfPayment'] = "Credit Card";
-		$opportunity['Rep'] = '@@@';
+		$opportunity['Rep'] = '005D0000004JsYd';
 		if ($order_info['status'] == 'P' && !$order_error)
 		{
 			$opportunity['stage'] = 'Post Opps Processing';
@@ -315,7 +315,7 @@ class User
 		$opportunity['type'] = 'Webshop Order';
 		$opportunity['Currency'] = 'USD';
 		//Reseller Users will have to Change this
-		$opportunity['PriceBookId'] = '@@@';
+		$opportunity['PriceBookId'] = '01s2000000000vwAAA';
 		!empty($order_info['promotion_ids']) ? $promotion = $order_info['promotions'] : $promotion = false;
 		if ($promotion)
 		{

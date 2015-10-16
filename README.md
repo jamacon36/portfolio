@@ -1,6 +1,6 @@
 JS Contents:
 - srapp.js
-  A JS with jQuery fuel toolbox for building UX elements on a page.
+  A JS with jQuery blostering toolbox for building UX elements on a page.
 
 PHP Contents:
 - Users Management

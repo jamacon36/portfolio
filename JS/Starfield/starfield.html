@@ -1,0 +1,101 @@
+<html>
+<head>
+    <style>
+        
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="velocity.min.js"></script>
+</head>
+<body>
+    <div class="universe">
+        <div id="starField"></div>
+    </div>
+    <script type="text/javascript">
+        var starCount = (Math.random() * (350-300) + 300),
+            starField = document.getElementById('starField'),
+            starTravelTo = 700;
+        for (var i = 0; i <= starCount; i++)
+        {
+            var starSpaceLeft = (Math.random() * (97-3) + 3) + '%',
+                starSpaceTop = (Math.random() * (97-3) + 3) + '%',
+                starDistance = "." + (Math.floor(Math.random() * (100-50) + 50));
+                star = document.createElement('div');
+            star.setAttribute('class', 'star');
+            star.setAttribute('id', 'star-' + (i+1));
+            star.setAttribute('style', 'top: ' + starSpaceTop + '; left: ' + starSpaceLeft + '; opacity: ' + starDistance);
+            starField.appendChild(star);
+        }
+        //Animation
+        var starClass = '.star',
+            spawnDelay = (Math.floor(Math.random(100-50) + 50));
+        setInterval(function()
+        {
+            travelTime = (Math.floor(Math.random(10000-500) + 500));
+            var travelToX = 0,
+                travelToY = 0,
+                travelerId = '#star-' + (Math.floor(Math.random() * (starCount - 1) + 1)),
+                traveler = $(travelerId + starClass),
+                travelerX = traveler.position().left,
+                travelerY = traveler.position().top,
+                travelOriginX = $(window).width() / 2,
+                travelOriginY = $(window).height() / 2;
+            if (traveler.position().left > travelOriginX)
+            {
+                if (traveler.position().top > ($(window).height() / 2))
+                {
+                    travelToX = (travelerX - travelOriginX) + travelerX;
+                    travelToY = (travelerY - travelOriginY) + travelerY;
+                }
+                else
+                {
+                    travelToX = (travelerX - travelOriginX) + travelerX;
+                    travelToY = travelerY - (travelOriginY - travelerY);
+                }
+            }
+            else
+            {
+                if (traveler.position().top > ($(window).height() / 2))
+                {
+                    travelToX = travelerX - (travelOriginX - travelerX);
+                    travelToY = (travelerY - travelOriginY) + travelerY;
+                }
+                else
+                {
+                    travelToX = travelerX - (travelOriginX - travelerX);
+                    travelToY = travelerY - (travelOriginY - travelerY);
+                }
+            }
+            traveler.velocity(
+            {
+                left: travelToX,
+                top: travelToY,
+                width: '10px',
+                height: '10px',
+                opacity: 0
+            },{
+                duration: travelTime,
+                complete: function()
+                {
+                    traveler.velocity(
+                    {
+                        opacity: 0,
+                        width: '3px',
+                        height: '3px'
+                    },{
+                        duration: 10,
+                        complete: function()
+                        {
+                            starSpaceLeft = (Math.random() * (97-3) + 3) + '%';
+                            starSpaceTop = (Math.random() * (97-3) + 3) + '%';
+                            starDistance = "." + (Math.floor(Math.random() * (100-50) + 50));
+                            traveler.css('left', starSpaceLeft);
+                            traveler.css('top', starSpaceTop);
+                            traveler.velocity({opacity: starDistance},{duration: travelTime});
+                        }
+                    });
+                }
+            });
+        }, spawnDelay);
+    </script>
+</body>
+</html>
